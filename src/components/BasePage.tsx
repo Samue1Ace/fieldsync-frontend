@@ -9,9 +9,10 @@ import './BasePage.css'
 import { HashRouter, NavLink, Route, Routes} from 'react-router-dom';
 import { MapContainer, TileLayer, useMap,Marker,Popup} from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
+import { popup } from 'leaflet';
 
 // for leaflet map
-function ChangeCenter(center :{center:any}){
+function ChangeCenter(center :{center:Geo}){
     let map = useMap()
     map.setView(center.center)
     return null
@@ -28,7 +29,7 @@ export default function BasePage(props: any){
     ///HELPER FUNCTIONS
     //below creates a table, instead of having a large HTML in the return functions of the components
     function tableCreator(data:User[]){
-        let tableArray: any = []
+        let tableArray:React.ReactNode[]= []
         tableArray.push(
             <tr>
                 <td>ID</td>
@@ -40,7 +41,7 @@ export default function BasePage(props: any){
         )
         data.forEach((data) => tableArray.push(
             <tr>
-                <td onClick={(event) => findPerson(event)}>{data.id.toString()}</td>
+                <td className="clickable" onClick={(event) => findPerson(event)}>{data.id.toString()}</td>
                 <td>{data.name}</td>
                 <td>{typeof data.company == "string" ? data.company :data.company.name}</td>
                 <td>{data.email}</td>
@@ -49,14 +50,23 @@ export default function BasePage(props: any){
         ))
         return tableArray
     }
-    
+    /*
+    function parseGeo(){
+        let popupArray:React.ReactNode[] = []
+        userList.forEach((item) => {
+            let geo:Geo = item?.address?.geo!
+            let name = item?.name!
+            popupArray.push(<Popup position={geo}>{name}</Popup>)
+        })
+        return popupArray
+    }
+    */
     function findPerson(event:any){
         try{
             let personID = Number(event.target.innerText)
             let foundThem = userList.find((item) => item.id == personID)
             let geo:Geo = foundThem?.address?.geo!
             let name = foundThem?.name!
-            console.log(geo)
             setCenter(geo)
             setName(name)
         }catch(e){
