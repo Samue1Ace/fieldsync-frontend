@@ -1,14 +1,14 @@
 
 # fieldsync-frontend
 
-This repository contains the front end code to the coding project. Make sure you have the backend microservice up and running first!
+This repository contains the frontend code to the coding project. Make sure you have the backend microservice up and running first!
 
 # Steps 
  1. Ensure you have npm/yarn installed and node.js
 
  2. Ensure you have the backend microservice running: https://github.com/Samue1Ace/fieldsync-backend
 
- 3. Clone this repository after the backend is up
+ 3. Clone this repository.
 
  4. Run ``` npm install ``` or ``` yarn install ```
 
